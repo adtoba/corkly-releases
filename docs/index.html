@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Corkly — a playful pinboard for your desktop</title>
+  <meta name="description" content="Pin sticky notes, photos, checklists, links and countdowns on a cork board that lives on your desktop. Tie ideas together with yarn and share boards with the people you love. For Mac and Windows." />
+  <meta property="og:title" content="Corkly — a playful pinboard for your desktop" />
+  <meta property="og:description" content="Sticky notes, polaroids, checklists and red yarn, right on your desktop. For Mac & Windows." />
+  <meta property="og:image" content="https://adtoba.github.io/corkly-releases/app.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#5b3a22" />
+  <link rel="icon" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&family=Permanent+Marker&family=Special+Elite&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #2f2418; --cream: #fff3dc; --wood: #6e4527; --wood-dark: #4a2c17;
+      --hand: 'Caveat', cursive; --ui: 'Patrick Hand', system-ui, sans-serif;
+      --marker: 'Permanent Marker', cursive; --type: 'Special Elite', ui-monospace, monospace;
+      --cork: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .17 0 0 0 0 .05 0 0 0 2.2 -.7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      --shadow: 0 1px 1px rgba(0,0,0,.18), 0 12px 20px -10px rgba(0,0,0,.5);
+      --spring: cubic-bezier(.34, 1.8, .64, 1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: var(--ui); font-size: 18px; color: var(--ink);
+      background: var(--cork) 0 0 / 220px, radial-gradient(ellipse at 50% 0%, #d6a76e, #bb864e 55%, #a06b3b);
+      background-color: #c4935b; min-height: 100vh; overflow-x: hidden;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+    /* ---------- header: a strip of wood ---------- */
+    header { background: linear-gradient(180deg, #8a5a34, #5b3a22); color: var(--cream); box-shadow: 0 4px 14px rgba(0,0,0,.35); position: sticky; top: 0; z-index: 10; }
+    header .wrap { display: flex; align-items: center; gap: 12px; height: 62px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo img { width: 34px; height: 34px; }
+    .logo span { font-family: var(--marker); font-size: 26px; color: #ffe6b0; transform: rotate(-3deg); text-shadow: 0 2px 0 var(--wood-dark); }
+    header nav { margin-left: auto; display: flex; gap: 22px; align-items: center; }
+    header nav a { text-decoration: none; opacity: .88; font-size: 18px; }
+    header nav a:hover { opacity: 1; }
+    .mini-dl { background: #fff3dc; color: var(--ink) !important; padding: 6px 16px; border-radius: 999px; box-shadow: 0 3px 0 #2f2418; opacity: 1 !important; transition: transform .2s var(--spring); }
+    .mini-dl:hover { transform: translateY(-2px); }
+
+    /* ---------- hero ---------- */
+    .hero { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: center; padding: 64px 0 30px; }
+    .hero h1 { font-family: var(--marker); font-weight: 400; font-size: clamp(44px, 6.4vw, 72px); line-height: 1; margin: 0 0 22px; color: #fff8ea; text-shadow: 0 3px 0 rgba(74,44,23,.55), 0 10px 22px rgba(0,0,0,.25); transform: rotate(-2deg); }
+    .note-lead { background: #ffe97a; padding: 22px 22px 20px; transform: rotate(1.5deg); box-shadow: var(--shadow); position: relative; max-width: 430px; border-bottom-right-radius: 60px 8px; }
+    .note-lead p { margin: 0; font-family: var(--hand); font-size: 28px; line-height: 1.1; }
+
+    .downloads { display: flex; flex-wrap: wrap; gap: 14px; margin: 32px 0 12px; }
+    .dl {
+      position: relative; display: flex; align-items: center; gap: 12px; text-decoration: none;
+      background: linear-gradient(160deg, #f4e0b4, #e2c287); padding: 15px 28px 15px 22px; min-width: 238px;
+      -webkit-mask: radial-gradient(circle 10px at 0 50%, #0000 96%, #000) left / 51% 100% no-repeat, radial-gradient(circle 10px at 100% 50%, #0000 96%, #000) right / 51% 100% no-repeat;
+      mask: radial-gradient(circle 10px at 0 50%, #0000 96%, #000) left / 51% 100% no-repeat, radial-gradient(circle 10px at 100% 50%, #0000 96%, #000) right / 51% 100% no-repeat;
+      filter: drop-shadow(0 6px 6px rgba(0,0,0,.3)); transition: transform .25s var(--spring);
+    }
+    .dl::after { content: ''; position: absolute; top: 10px; bottom: 10px; right: 54px; border-right: 2px dashed rgba(47,36,24,.22); display: none; }
+    .dl:nth-child(1) { transform: rotate(-2deg); }
+    .dl:nth-child(2) { transform: rotate(1.5deg); }
+    .dl:hover { transform: rotate(0) translateY(-4px) scale(1.04); }
+    .dl.primary { background: linear-gradient(160deg, #2f2418, #4a3624); color: #fff3dc; }
+    .dl svg { width: 30px; height: 30px; flex: none; }
+    .dl b { display: block; font-family: var(--type); font-weight: 400; font-size: 19px; letter-spacing: .5px; }
+    .dl small { display: block; font-size: 14px; opacity: .75; }
+    .meta { font-family: var(--hand); font-size: 22px; color: #3b2814; }
+    .meta a { color: #23407a; }
+
+    .shot { position: relative; background: #fdfdfb; padding: 14px; margin: 0; transform: rotate(1.8deg); box-shadow: 0 2px 3px rgba(0,0,0,.2), 0 30px 50px -18px rgba(0,0,0,.55); }
+    .shot img { display: block; width: 100%; height: auto; }
+    .shot figcaption { text-align: center; font-family: var(--hand); font-size: 26px; line-height: 1.1; padding-top: 12px; }
+    .tape { position: absolute; top: -16px; left: 50%; width: 130px; height: 32px; margin-left: -65px; transform: rotate(-4deg); background: repeating-linear-gradient(45deg, rgba(255,160,185,.85) 0 8px, rgba(255,200,215,.85) 8px 16px); clip-path: polygon(0 0, 4% 25%, 0 50%, 4% 75%, 0 100%, 100% 100%, 96% 75%, 100% 50%, 96% 25%, 100% 0); }
+    .tape.sun { background: repeating-linear-gradient(90deg, rgba(255,210,90,.85) 0 6px, rgba(255,228,150,.85) 6px 12px); }
+    .tape.mint { background: radial-gradient(circle, rgba(255,255,255,.7) 2px, transparent 2.5px) 0 0/10px 10px, rgba(140,220,190,.85); }
+
+    /* ---------- section titles: a label strip pinned to the board ---------- */
+    section { scroll-margin-top: 80px; }
+    .label { display: inline-block; position: relative; font-family: var(--type); font-weight: 400; font-size: clamp(24px, 3.2vw, 32px); letter-spacing: 1px; background: #fffaf0; padding: 10px 26px 9px; margin: 84px 0 34px; box-shadow: var(--shadow); transform: rotate(-1.5deg); }
+    .label::before, .label::after { content: ''; position: absolute; top: -9px; width: 54px; height: 20px; background: rgba(255,255,255,.55); box-shadow: 0 1px 2px rgba(0,0,0,.1); }
+    .label::before { left: -14px; transform: rotate(-24deg); }
+    .label::after { right: -14px; transform: rotate(22deg); }
+    .sub { font-family: var(--hand); font-size: 26px; color: #3b2814; margin: -18px 0 30px; }
+
+    /* ---------- features as sticky notes ---------- */
+    .notes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px 26px; }
+    .sticky { position: relative; padding: 34px 20px 24px; min-height: 196px; box-shadow: var(--shadow); border-bottom-right-radius: 60px 8px; transition: transform .35s var(--spring); }
+    .sticky:hover { transform: rotate(0) scale(1.04) !important; z-index: 2; }
+    .sticky .em { font-size: 26px; line-height: 1; display: block; margin-bottom: 6px; }
+    .sticky h3 { font-family: var(--marker); font-weight: 400; font-size: 21px; margin: 0 0 6px; }
+    .sticky p { font-family: var(--hand); font-size: 23px; line-height: 1.1; margin: 0; }
+    .pin { position: absolute; top: -8px; left: 50%; width: 26px; height: 26px; margin-left: -13px; border-radius: 50%; background: radial-gradient(circle at 34% 30%, rgba(255,255,255,.85) 0 2.5px, transparent 3.5px), radial-gradient(circle at 40% 36%, var(--p, #e63946) 0 48%, #3a0f12 130%); box-shadow: 3px 5px 4px rgba(0,0,0,.35); }
+    .y { background: #ffe97a; } .k { background: #ffb3c7; } .m { background: #b8f0c8; } .b { background: #a9d8ff; } .o { background: #ffc078; } .l { background: #d9c4ff; } .w { background: #fffaf0; } .t { background: #9ee6e0; }
+    .notes .sticky:nth-child(4n+1) { transform: rotate(-2.5deg); }
+    .notes .sticky:nth-child(4n+2) { transform: rotate(1.5deg); }
+    .notes .sticky:nth-child(4n+3) { transform: rotate(-1deg); }
+    .notes .sticky:nth-child(4n) { transform: rotate(2deg); }
+
+    /* ---------- widget ---------- */
+    .split { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; align-items: center; }
+    .card { background: #fffdf6; position: relative; padding: 26px 28px 26px 56px; box-shadow: var(--shadow); transform: rotate(-1deg); background-image: repeating-linear-gradient(180deg, transparent 0 31px, rgba(120,170,225,.45) 31px 32px); background-position: 0 60px; }
+    .card::before { content: ''; position: absolute; left: 36px; top: 0; bottom: 0; width: 2px; background: rgba(232,106,106,.55); }
+    .card h3 { font-family: var(--type); font-weight: 400; font-size: 24px; margin: 0 0 10px; }
+    .card p, .card li { font-family: var(--hand); font-size: 25px; line-height: 32px; margin: 0; }
+    .card ul { padding-left: 20px; margin: 6px 0 0; }
+    .widget-shot { justify-self: center; max-width: 340px; transform: rotate(-2deg); }
+
+    /* ---------- plans ---------- */
+    .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; max-width: 860px; }
+    .plan { position: relative; padding: 34px 30px 30px; box-shadow: var(--shadow); }
+    .plan.free { background: #fffaf0; transform: rotate(-1.2deg); }
+    .plan.plus { background: linear-gradient(160deg, #2f2418, #4a3624); color: #fff3dc; transform: rotate(1.2deg); }
+    .plan h3 { font-family: var(--marker); font-weight: 400; font-size: 30px; margin: 0 0 2px; }
+    .plan .tag { font-family: var(--hand); font-size: 24px; opacity: .8; margin: 0 0 14px; }
+    .plan ul { list-style: none; padding: 0; margin: 0; }
+    .plan li { font-size: 19px; line-height: 1.45; padding: 5px 0 5px 30px; position: relative; }
+    .plan li::before { content: '✓'; position: absolute; left: 4px; top: 4px; font-weight: 700; color: #2a9d8f; }
+    .plan.plus li::before { content: '★'; color: #ffd166; }
+    .plan .stamp { position: absolute; top: 18px; right: 18px; font-family: var(--type); font-size: 14px; letter-spacing: 2px; color: #ffd166; border: 2px solid #ffd166; padding: 3px 8px; transform: rotate(8deg); opacity: .9; }
+    .plan .how { font-family: var(--hand); font-size: 22px; margin: 16px 0 0; opacity: .85; }
+
+    /* ---------- FAQ ---------- */
+    .faq { max-width: 860px; }
+    details { background: #fffef8; margin: 0 0 16px; padding: 16px 22px; box-shadow: var(--shadow); transition: transform .3s var(--spring); }
+    details:nth-of-type(odd) { transform: rotate(-.5deg); }
+    details:nth-of-type(even) { transform: rotate(.4deg); }
+    details[open] { transform: rotate(0); }
+    summary { cursor: pointer; font-family: var(--type); font-size: 19px; list-style: none; display: flex; align-items: center; gap: 10px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::before { content: ''; flex: none; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 40% 36%, #e63946 0 48%, #3a0f12 130%); box-shadow: 1px 2px 2px rgba(0,0,0,.3); }
+    summary::after { content: '+'; margin-left: auto; font-family: var(--ui); font-size: 24px; line-height: 1; opacity: .5; transition: transform .2s; }
+    details[open] summary::after { transform: rotate(45deg); }
+    details p, details li { font-size: 18px; line-height: 1.55; }
+    details p { margin: 12px 0 2px; }
+    details ol { margin: 10px 0 2px; padding-left: 22px; }
+    code { font-family: var(--type); font-size: 15px; background: #f1e6cc; padding: 1px 6px; border-radius: 3px; }
+
+    /* ---------- closing call + footer ---------- */
+    .closer { text-align: center; padding: 30px 0 10px; }
+    .closer h2 { font-family: var(--marker); font-weight: 400; font-size: clamp(32px, 4.5vw, 46px); color: #fff8ea; text-shadow: 0 3px 0 rgba(74,44,23,.55); margin: 80px 0 24px; transform: rotate(-1.5deg); }
+    .closer .downloads { justify-content: center; margin-top: 0; }
+
+    footer { margin-top: 70px; background: linear-gradient(180deg, #6e4527, #4a2c17); color: var(--cream); padding: 30px 0 34px; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 30px; align-items: center; justify-content: space-between; font-size: 17px; }
+    footer a { color: #ffe6b0; }
+
+    /* gentle entrance */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; translate: 0 18px; transition: opacity .6s ease, translate .6s var(--spring); }
+      .reveal.in { opacity: 1; translate: 0 0; }
+    }
+
+    @media (max-width: 960px) {
+      .notes { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 860px) {
+      .hero, .split, .plans { grid-template-columns: 1fr; }
+      .hero { padding-top: 40px; gap: 40px; }
+      header nav a:not(.mini-dl) { display: none; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 17px; }
+      .notes { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
+      .sticky { min-height: 0; padding: 28px 14px 18px; }
+      .sticky h3 { font-size: 18px; }
+      .sticky p { font-size: 20px; }
+      .dl { min-width: 0; width: 100%; }
+      .label { margin-top: 64px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#"><img src="icon.png" alt="" /><span>Corkly</span></a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#plus">Plus</a>
+        <a href="#faq">FAQ</a>
+        <a class="mini-dl" href="#download">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" id="download">
+      <div>
+        <h1>Your desk,<br />but pinned.</h1>
+        <div class="note-lead"><span class="pin" style="--p:#2a9d8f"></span>
+          <p>A playful cork board that lives on your desktop. Notes, photos, checklists and countdowns — tied together with red yarn.</p>
+        </div>
+        <div class="downloads">
+          <a class="dl" data-platform="mac" href="https://github.com/adtoba/corkly-releases/releases/latest">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.2 1-4 2.5-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.5-1-2.5-4zM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>
+            <span><b>Download for Mac</b><small>Apple Silicon &amp; Intel</small></span>
+          </a>
+          <a class="dl" data-platform="windows" href="https://github.com/adtoba/corkly-releases/releases/latest">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10.4 4.5v7H3zM11.4 4.4 21 3v8.5h-9.6zM3 12.5h7.4v7L3 18.5zM11.4 12.5H21V21l-9.6-1.4z"/></svg>
+            <span><b>Download for Windows</b><small>Windows 10 &amp; 11</small></span>
+          </a>
+        </div>
+        <div class="meta" data-meta>Free to download · Mac &amp; Windows</div>
+      </div>
+      <figure class="shot">
+        <span class="tape"></span>
+        <img src="app.jpg" width="1600" height="1000" alt="Corkly with sticky notes, an index card, a checklist and a polaroid on a cork board, tied together with red yarn" />
+        <figcaption>everything that matters, pinned where you can see it</figcaption>
+      </figure>
+    </section>
+
+    <section id="features">
+      <h2 class="label">Things you can pin</h2>
+      <div class="notes">
+        <div class="sticky y reveal"><span class="pin"></span><span class="em">📝</span><h3>Sticky notes</h3><p>Double-click anywhere and start writing.</p></div>
+        <div class="sticky b reveal"><span class="pin" style="--p:#3a86ff"></span><span class="em">📸</span><h3>Polaroids</h3><p>Drop in a photo, add a caption and some washi tape.</p></div>
+        <div class="sticky m reveal"><span class="pin" style="--p:#06d6a0"></span><span class="em">✅</span><h3>Checklists</h3><p>Tick the last box and get a DONE! stamp and confetti.</p></div>
+        <div class="sticky k reveal"><span class="pin" style="--p:#9b5de5"></span><span class="em">🧶</span><h3>Red yarn</h3><p>Connect ideas detective-style. The string sags and bounces.</p></div>
+        <div class="sticky o reveal"><span class="pin" style="--p:#ffd166"></span><span class="em">🎂</span><h3>Countdowns</h3><p>Birthdays, trips, launches — balloons when the day arrives.</p></div>
+        <div class="sticky l reveal"><span class="pin" style="--p:#e63946"></span><span class="em">🎟️</span><h3>Link tickets</h3><p>Paste a link and it becomes a little admission ticket.</p></div>
+        <div class="sticky t reveal"><span class="pin" style="--p:#2a9d8f"></span><span class="em">💌</span><h3>Shared boards</h3><p>Invite someone with a code and pin things on each other's boards.</p></div>
+        <div class="sticky w reveal"><span class="pin" style="--p:#f77f00"></span><span class="em">🎨</span><h3>Make it yours</h3><p>Cork, felt, chalkboard or pegboard, with a frame to match.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="label">Lives on your desktop</h2>
+      <div class="split">
+        <figure class="shot widget-shot reveal"><span class="tape sun"></span><img src="widget.jpg" width="660" height="840" alt="Corkly as a small desktop widget" /><figcaption>widget mode</figcaption></figure>
+        <div class="card reveal">
+          <h3>Small, always there</h3>
+          <ul>
+            <li>Sits as a widget in the corner of your screen</li>
+            <li>Opens by itself when your computer starts</li>
+            <li>Hide the toolbars — just the board</li>
+            <li>One shortcut to show or hide it from anywhere</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="plus">
+      <h2 class="label">Free, with a little extra</h2>
+      <div class="plans">
+        <div class="plan free reveal">
+          <span class="pin" style="--p:#2a9d8f"></span>
+          <h3>Corkly</h3>
+          <p class="tag">free, forever</p>
+          <ul>
+            <li>Every kind of pin, unlimited boards</li>
+            <li>Widget mode, themes and countdowns</li>
+            <li>1 shared board with up to 3 guests</li>
+          </ul>
+        </div>
+        <div class="plan plus reveal">
+          <span class="pin" style="--p:#ffd166"></span>
+          <span class="stamp">PLUS</span>
+          <h3>Corkly Plus</h3>
+          <p class="tag">for boards you share</p>
+          <ul>
+            <li>Share as many boards as you like</li>
+            <li>Up to 25 people on each board</li>
+            <li>Supports a small indie app made in Lagos</li>
+          </ul>
+          <p class="how">Monthly, yearly or lifetime — upgrade from inside the app.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq">
+      <h2 class="label">Good to know</h2>
+      <details>
+        <summary>Installing on a Mac</summary>
+        <p>Open the <code>.dmg</code> and drag <b>Corkly</b> into <b>Applications</b>. That's it — Corkly is signed and checked by Apple, and it updates itself from then on.</p>
+      </details>
+      <details>
+        <summary>Installing on Windows</summary>
+        <p>Run the installer. If Windows shows <b>"Windows protected your PC"</b>, click <b>More info → Run anyway</b>. You only see this once — Corkly updates itself after that.</p>
+      </details>
+      <details>
+        <summary>Where do my boards live?</summary>
+        <p>On your computer. Only boards you choose to share are stored online, so the people you invite can see them. Corkly sends anonymous usage counts like "opened today" — never names or what's on your boards — and you can switch that off in Settings.</p>
+      </details>
+      <details>
+        <summary>How do I cancel Plus?</summary>
+        <p>Open Corkly → Settings → Corkly Plus → <b>Manage subscription</b>. You keep Plus until the end of the period you paid for.</p>
+      </details>
+    </section>
+
+    <section class="closer">
+      <h2>Pin something good today.</h2>
+      <div class="downloads" data-clone></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>Made with 🧶 in Lagos by <a href="https://adetoba.com">Adebisi Habib Adetoba</a></div>
+      <div data-version></div>
+    </div>
+  </footer>
+
+  <script>
+    const REPO = 'adtoba/corkly-releases';
+    const APTABASE_KEY = 'A-EU-7074169884'; // Aptabase App Key — counts visits and download clicks, no cookies
+
+    // ---- tiny, cookie-free analytics (Aptabase) ----
+    const session = String(Math.floor(Date.now() / 1000)) + String(Math.floor(Math.random() * 1e8)).padStart(8, '0');
+    function track(eventName, props) {
+      const m = /^A-(EU|US)-/.exec(APTABASE_KEY);
+      if (!m) return;
+      try {
+        fetch(`https://${m[1].toLowerCase()}.aptabase.com/api/v0/event`, {
+          method: 'POST', keepalive: true, credentials: 'omit',
+          headers: { 'Content-Type': 'application/json', 'App-Key': APTABASE_KEY },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(), sessionId: session, eventName,
+            systemProps: { locale: navigator.language, isDebug: location.hostname === 'localhost', appVersion: 'site', sdkVersion: 'corkly-site@1' },
+            props: props || {},
+          }),
+        }).catch(() => {});
+      } catch {}
+    }
+    const ref = (() => { try { return document.referrer ? new URL(document.referrer).hostname : 'direct'; } catch { return 'direct'; } })();
+    const utm = new URLSearchParams(location.search).get('utm_source') || '';
+    track('site_view', { ref, utm });
+
+    // ---- put the visitor's platform first, and repeat the buttons at the bottom ----
+    const isWin = /Win/.test(navigator.platform) || /Windows/.test(navigator.userAgent);
+    const heroDl = document.querySelector('.hero .downloads');
+    const winBtn = heroDl.querySelector('[data-platform="windows"]');
+    if (isWin) heroDl.prepend(winBtn);
+    heroDl.firstElementChild.classList.add('primary');
+    document.querySelector('[data-clone]').innerHTML = heroDl.innerHTML;
+    const buttons = () => document.querySelectorAll('.dl');
+
+    // ---- point the buttons straight at the latest installers ----
+    fetch(`https://api.github.com/repos/${REPO}/releases/latest`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((rel) => {
+        if (!rel) return;
+        const find = (re) => (rel.assets || []).find((a) => re.test(a.name));
+        const dmg = find(/\.dmg$/i), exe = find(/Setup.*\.exe$/i) || find(/\.exe$/i);
+        const mb = (a) => `${Math.round(a.size / 1048576)} MB`;
+        buttons().forEach((b) => {
+          const a = b.dataset.platform === 'mac' ? dmg : exe;
+          if (!a) return;
+          b.href = a.browser_download_url;
+          b.querySelector('small').textContent = `${b.dataset.platform === 'mac' ? 'Apple Silicon & Intel' : 'Windows 10 & 11'} · ${mb(a)}`;
+        });
+        const v = rel.tag_name.replace(/^v/, '');
+        document.querySelector('[data-meta]').innerHTML = `Free to download · version ${v} · <a href="${rel.html_url}">what's new</a>`;
+        document.querySelector('[data-version]').textContent = `Version ${v}`;
+      })
+      .catch(() => {});
+
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('.dl');
+      if (a) track('download_click', { platform: a.dataset.platform, ref, utm });
+    });
+
+    // ---- notes drift in as you scroll ----
+    const io = 'IntersectionObserver' in window && new IntersectionObserver((entries) => {
+      entries.forEach((en, i) => { if (en.isIntersecting) { setTimeout(() => en.target.classList.add('in'), i * 70); io.unobserve(en.target); } });
+    }, { threshold: .15 });
+    document.querySelectorAll('.reveal').forEach((el) => (io ? io.observe(el) : el.classList.add('in')));
+  </script>
+</body>
+</html>
