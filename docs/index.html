@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Corkly — a playful pinboard for your desktop</title>
-  <meta name="description" content="Pin sticky notes, photos, checklists, links and countdowns on a cork board that lives on your desktop. Tie ideas together with yarn and share boards with the people you love. For Mac and Windows." />
+  <meta name="description" content="Pin sticky notes, photos, voice notes, checklists and countdowns on a cork board that lives on your desktop. Play games, tie ideas together with yarn and share boards with the people you love. For Mac and Windows." />
   <meta property="og:title" content="Corkly — a playful pinboard for your desktop" />
-  <meta property="og:description" content="Sticky notes, polaroids, checklists and red yarn, right on your desktop. For Mac & Windows." />
+  <meta property="og:description" content="Sticky notes, polaroids, voice notes, games and red yarn, right on your desktop. For Mac &amp; Windows." />
   <meta property="og:image" content="https://getcorkly.com/app.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#5b3a22" />
@@ -89,6 +89,7 @@
     .notes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px 26px; }
     .sticky { position: relative; padding: 34px 20px 24px; min-height: 196px; box-shadow: var(--shadow); border-bottom-right-radius: 60px 8px; transition: transform .35s var(--spring); }
     .sticky:hover { transform: rotate(0) scale(1.04) !important; z-index: 2; }
+    .sticky .new { position: absolute; top: 12px; right: 12px; font-family: var(--marker); font-size: 13px; letter-spacing: 1px; color: #fff; background: #e63946; padding: 3px 8px 2px; border-radius: 3px; transform: rotate(8deg); box-shadow: 0 2px 0 rgba(0,0,0,.2); }
     .sticky .em { font-size: 26px; line-height: 1; display: block; margin-bottom: 6px; }
     .sticky h3 { font-family: var(--marker); font-weight: 400; font-size: 21px; margin: 0 0 6px; }
     .sticky p { font-family: var(--hand); font-size: 23px; line-height: 1.1; margin: 0; }
@@ -190,7 +191,7 @@
       <div>
         <h1>Your desk,<br />but pinned.</h1>
         <div class="note-lead"><span class="pin" style="--p:#2a9d8f"></span>
-          <p>A playful cork board that lives on your desktop. Notes, photos, checklists and countdowns — tied together with red yarn.</p>
+          <p>A playful cork board that lives on your desktop. Notes, photos, voice notes and games — tied together with red yarn.</p>
         </div>
         <div class="downloads">
           <a class="dl" data-platform="mac" href="https://github.com/adtoba/corkly-releases/releases/latest">
@@ -216,12 +217,12 @@
       <div class="notes">
         <div class="sticky y reveal"><span class="pin"></span><span class="em">📝</span><h3>Sticky notes</h3><p>Double-click anywhere and start writing.</p></div>
         <div class="sticky b reveal"><span class="pin" style="--p:#3a86ff"></span><span class="em">📸</span><h3>Polaroids</h3><p>Drop in a photo, add a caption and some washi tape.</p></div>
+        <div class="sticky k reveal"><span class="pin" style="--p:#9b5de5"></span><span class="new">NEW</span><span class="em">🎙️</span><h3>Voice notes</h3><p>Record a little message on a cassette. Perfect for “good morning”.</p></div>
+        <div class="sticky t reveal"><span class="pin" style="--p:#2a9d8f"></span><span class="new">NEW</span><span class="em">🎲</span><h3>Games</h3><p>X and O, Hangman and Dots &amp; Boxes — against the computer or each other.</p></div>
         <div class="sticky m reveal"><span class="pin" style="--p:#06d6a0"></span><span class="em">✅</span><h3>Checklists</h3><p>Tick the last box and get a DONE! stamp and confetti.</p></div>
-        <div class="sticky k reveal"><span class="pin" style="--p:#9b5de5"></span><span class="em">🧶</span><h3>Red yarn</h3><p>Connect ideas detective-style. The string sags and bounces.</p></div>
         <div class="sticky o reveal"><span class="pin" style="--p:#ffd166"></span><span class="em">🎂</span><h3>Countdowns</h3><p>Birthdays, trips, launches — balloons when the day arrives.</p></div>
-        <div class="sticky l reveal"><span class="pin" style="--p:#e63946"></span><span class="em">🎟️</span><h3>Link tickets</h3><p>Paste a link and it becomes a little admission ticket.</p></div>
-        <div class="sticky t reveal"><span class="pin" style="--p:#2a9d8f"></span><span class="em">💌</span><h3>Shared boards</h3><p>Invite someone with a code and pin things on each other's boards.</p></div>
-        <div class="sticky w reveal"><span class="pin" style="--p:#f77f00"></span><span class="em">🎨</span><h3>Make it yours</h3><p>Cork, felt, chalkboard or pegboard, with a frame to match.</p></div>
+        <div class="sticky l reveal"><span class="pin" style="--p:#e63946"></span><span class="em">🧶</span><h3>Red yarn</h3><p>Connect ideas detective-style. The string sags and bounces.</p></div>
+        <div class="sticky w reveal"><span class="pin" style="--p:#f77f00"></span><span class="em">💌</span><h3>Shared boards</h3><p>Invite someone and pin notes, photos and games onto each other’s boards — live.</p></div>
       </div>
     </section>
 
@@ -236,6 +237,7 @@
             <li>Opens by itself when your computer starts</li>
             <li>Hide the toolbars — just the board</li>
             <li>One shortcut to show or hide it from anywhere</li>
+            <li>Cork, felt, chalkboard or pegboard, with a frame to match</li>
           </ul>
         </div>
       </div>
@@ -250,7 +252,8 @@
           <p class="tag">free, forever</p>
           <ul>
             <li>Every kind of pin, unlimited boards</li>
-            <li>Widget mode, themes and countdowns</li>
+            <li>Games, countdowns, widget mode and themes</li>
+            <li>Voice notes up to 30 seconds</li>
             <li>1 shared board with up to 3 guests</li>
           </ul>
         </div>
@@ -262,6 +265,7 @@
           <ul>
             <li>Share as many boards as you like</li>
             <li>Up to 25 people on each board</li>
+            <li>Voice notes up to 2 minutes</li>
             <li>Supports a small indie app made in Lagos</li>
           </ul>
           <p class="how">Monthly, yearly or lifetime — upgrade from inside the app.</p>
@@ -282,6 +286,10 @@
       <details>
         <summary>Where do my boards live?</summary>
         <p>On your computer. Only boards you choose to share are stored online, so the people you invite can see them. Corkly sends anonymous usage counts like "opened today" — never names or what's on your boards — and you can switch that off in Settings.</p>
+      </details>
+      <details>
+        <summary>Can we play and send voice notes between a Mac and a PC?</summary>
+        <p>Yes. Share a board and everything on it — notes, photos, voice notes and games — shows up on both computers, Mac or Windows. Games and voice notes are free; Plus just lets voice notes run longer.</p>
       </details>
       <details>
         <summary>How do I cancel Plus?</summary>
