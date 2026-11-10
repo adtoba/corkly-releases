@@ -3,12 +3,37 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Corkly — a playful pinboard for your desktop</title>
-  <meta name="description" content="Pin sticky notes, photos, voice notes, checklists and countdowns on a cork board that lives on your desktop. Play games, tie ideas together with yarn and share boards with the people you love. For Mac and Windows." />
-  <meta property="og:title" content="Corkly — a playful pinboard for your desktop" />
-  <meta property="og:description" content="Sticky notes, polaroids, voice notes, games and red yarn, right on your desktop. For Mac &amp; Windows." />
+  <title>Corkly — Desktop Sticky Notes &amp; Corkboard for Mac &amp; Windows</title>
+  <meta name="description" content="A cozy corkboard for your desktop. Pin sticky notes, photos, voice notes and games — and share a board with your partner or friends. Free for Mac &amp; Windows." />
+  <link rel="canonical" href="https://getcorkly.com/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Corkly" />
+  <meta property="og:url" content="https://getcorkly.com/" />
+  <meta property="og:title" content="Corkly — your desk, but pinned" />
+  <meta property="og:description" content="Sticky notes, polaroids, voice notes, games and red yarn, right on your desktop. Share a board with your person. Free for Mac &amp; Windows." />
   <meta property="og:image" content="https://getcorkly.com/app.jpg" />
+  <meta property="og:image:width" content="1600" />
+  <meta property="og:image:height" content="1000" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Corkly — your desk, but pinned" />
+  <meta name="twitter:description" content="A cozy corkboard for your desktop. Notes, photos, voice notes and games — shared live with your person. Free for Mac &amp; Windows." />
+  <meta name="twitter:image" content="https://getcorkly.com/app.jpg" />
+  <link rel="apple-touch-icon" href="icon.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Corkly",
+    "url": "https://getcorkly.com/",
+    "image": "https://getcorkly.com/app.jpg",
+    "description": "A cozy corkboard for your desktop. Pin sticky notes, photos, voice notes, checklists, countdowns and games, and share boards live with your partner, friends or family.",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "macOS, Windows 10, Windows 11",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Adebisi Habib Adetoba", "url": "https://adetoba.com" }
+  }
+  </script>
   <meta name="theme-color" content="#5b3a22" />
   <link rel="icon" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,6 +72,7 @@
 
     /* ---------- hero ---------- */
     .hero { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: center; padding: 64px 0 30px; }
+    .kicker { font-family: var(--type); font-size: 15px; letter-spacing: .5px; color: #3b2814; margin: 0 0 10px; }
     .hero h1 { font-family: var(--marker); font-weight: 400; font-size: clamp(44px, 6.4vw, 72px); line-height: 1; margin: 0 0 22px; color: #fff8ea; text-shadow: 0 3px 0 rgba(74,44,23,.55), 0 10px 22px rgba(0,0,0,.25); transform: rotate(-2deg); }
     .note-lead { background: #ffe97a; padding: 22px 22px 20px; transform: rotate(1.5deg); box-shadow: var(--shadow); position: relative; max-width: 430px; border-bottom-right-radius: 60px 8px; }
     .note-lead p { margin: 0; font-family: var(--hand); font-size: 28px; line-height: 1.1; }
@@ -147,6 +173,7 @@
     footer { margin-top: 70px; background: linear-gradient(180deg, #6e4527, #4a2c17); color: var(--cream); padding: 30px 0 34px; }
     footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 30px; align-items: center; justify-content: space-between; font-size: 17px; }
     footer a { color: #ffe6b0; }
+    .foot-links { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 15px; }
 
     /* gentle entrance */
     @media (prefers-reduced-motion: no-preference) {
@@ -202,7 +229,7 @@
 <body>
   <header>
     <div class="wrap">
-      <a class="logo" href="#"><img src="icon.png" alt="" /><span>Corkly</span></a>
+      <a class="logo" href="#"><img src="icon.png" alt="Corkly" width="34" height="34" /><span>Corkly</span></a>
       <nav>
         <a href="#features">Features</a>
         <a href="#plus">Plus</a>
@@ -215,6 +242,7 @@
   <main class="wrap">
     <section class="hero" id="download">
       <div>
+        <p class="kicker">Desktop sticky notes &amp; corkboard for Mac and Windows</p>
         <h1>Your desk,<br />but pinned.</h1>
         <div class="note-lead"><span class="pin" style="--p:#2a9d8f"></span>
           <p>A playful cork board that lives on your desktop. Notes, photos, voice notes and games — tied together with red yarn.</p>
@@ -268,7 +296,7 @@
     <section>
       <h2 class="label">Lives on your desktop</h2>
       <div class="split">
-        <figure class="shot widget-shot reveal"><span class="tape sun"></span><img src="widget.jpg" width="660" height="840" alt="Corkly as a small desktop widget" /><figcaption>widget mode</figcaption></figure>
+        <figure class="shot widget-shot reveal"><span class="tape sun"></span><img src="widget.jpg" width="660" height="840" loading="lazy" alt="Corkly as a small sticky-notes widget in the corner of a desktop" /><figcaption>widget mode</figcaption></figure>
         <div class="card reveal">
           <h3>Small, always there</h3>
           <ul>
@@ -346,6 +374,7 @@
   <footer>
     <div class="wrap">
       <div>Made with 🧶 in Lagos by <a href="https://adetoba.com">Adebisi Habib Adetoba</a></div>
+      <nav class="foot-links" aria-label="Corkly for…"><a href="sticky-notes-for-mac/">Sticky notes for Mac</a><a href="sticky-notes-for-windows/">Sticky notes for Windows</a><a href="long-distance-couples/">For long-distance couples</a><a href="desktop-widgets/">Desktop widgets</a></nav>
       <div data-version></div>
     </div>
   </footer>
